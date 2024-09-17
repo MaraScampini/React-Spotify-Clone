@@ -7,8 +7,9 @@ const Discover = () => {
     const { data, isFetching, error } = useGetBrowseQuery();
     const genreTitle = 'Pop';
 
-    if(isFetching) return <Loader title="Loading"/>;
+    let rawData = data?.data.browseStart.sections.items[0].sectionItems.items ?? [];
 
+    if(isFetching) return <Loader title="Loading"/>;
     if(error) return <Error />;
 
     return (
@@ -23,7 +24,7 @@ const Discover = () => {
             </select>
         </div>
         <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-            {[1, 2, 3, 4, 5].map((song, i) => (
+            {rawData.map((song, i) => (
                 <SongCard 
                     key={song.key}
                     song={song}
